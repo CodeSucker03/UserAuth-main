@@ -18,7 +18,7 @@ const handleLogout = async (req, res) => {
     // const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     const foundUser = await User.findOne({ refreshToken })
     if (!foundUser) {
-        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None'});
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true});
         return res.sendStatus(204);
     }
 
@@ -30,9 +30,11 @@ const handleLogout = async (req, res) => {
     //     path.join(__dirname, '..', 'model', 'users.json'),
     //     JSON.stringify(usersDB.users)
     // );
-    foundUser.refreshToken = '';
+    foundUser.refreshToken = foundUser.refreshToken.filter(
+        (rt) => rt !== refreshToken)
     const result = await foundUser.save()
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None'});
+    console.log(result)
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true});
     res.sendStatus(204);
 }
 

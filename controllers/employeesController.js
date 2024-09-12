@@ -117,7 +117,7 @@ const getEmployee = async (req, res) => {
       .status(204)
       .json({ message: `Employee ID ${req.params.id} not found` });
   }
-  res.json(employee);
+  res.status(200).json(employee);
   //   const employee = data.employees.find(
   //     (emp) => emp.id === parseInt(req.params.id)
   //   );

@@ -46,6 +46,8 @@ app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT); // after this line routes will use jwt verify
 app.use("/employees", require("./routes/api/employees"));
+app.use("/user", require("./routes/api/user"));
+
 
 app.all("*", (req, res) => {
   res.status(404);
